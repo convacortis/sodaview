@@ -11,6 +11,6 @@ namespace sodaview {
 
     };
 
-    application* createApplication()
+    application* createApplication();
 
 }

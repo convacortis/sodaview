@@ -1,4 +1,5 @@
 #include "application.h"
+#include <iostream>
 
 sodaview::application::application() 
 {
