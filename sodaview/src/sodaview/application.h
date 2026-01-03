@@ -1,14 +1,29 @@
-namespace sodaview {
+#pragma once
 
-    class application {
+#include <SDL2/SDL.h>
 
-    public:
+namespace sodaview 
+{
+
+    class application
+    {
     
+    public:
+        
         application();
         ~application();
 
         void run();
 
+    private:
+
+        void setup();
+        bool initWindow();
+        void kill();
+
+        bool m_running = true;
+        SDL_Surface* surface;
+        SDL_Window* window;
     };
 
     application* createApplication();
