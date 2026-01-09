@@ -1,6 +1,9 @@
-#include "application.h"
-#include <SDL2/SDL.h>
+#include "../../../vendor/glad/include/glad/glad.h"
+#include "../../../vendor/SDL/include/SDL.h"
+#include <stdio.h>
+#include <string>
 #include <iostream>
+#include "application.h"
 
 
 
@@ -32,6 +35,8 @@ void sodaview::application::run()
         }
 
         SDL_UpdateWindowSurface(window);
+        
+        SDL_Delay(10);
     }
 }
 
@@ -85,7 +90,7 @@ bool sodaview::application::initWindow()
     }
 
 
-    SDL_FillRect( surface, NULL, SDL_MapRGB( surface->format, 255, 255, 255 ) );
+    SDL_FillRect( surface, NULL, SDL_MapRGB( surface->format, 255, 1, 255 ) );
     
     std::cout  << "it worked" << std::endl;
     return true;
