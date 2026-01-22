@@ -1,13 +1,15 @@
 #include "../../../vendor/glad/include/glad/glad.h"
 #include "../../../vendor/SDL/include/SDL.h"
+#include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include "logging.h"
 #include "application.h"
 
 
 
-
+// create and destroy application
 sodaview::application::application() 
 {
     setup();
@@ -18,8 +20,7 @@ sodaview::application::~application()
     kill();
 }
 
-
-
+// event loop
 void sodaview::application::run()
 {
     while(m_running)
@@ -40,11 +41,7 @@ void sodaview::application::run()
     }
 }
 
-
-
-
-
-
+// run all things needed to setup project
 void sodaview::application::setup()
 {
     if ( !initWindow() ) 
@@ -54,13 +51,14 @@ void sodaview::application::setup()
     }
 }
 
-
-
-
-
-
+// create window
 bool sodaview::application::initWindow()
 {
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
     if ( SDL_Init( SDL_INIT_EVERYTHING  ) < 0 )
     {
@@ -74,11 +72,20 @@ bool sodaview::application::initWindow()
         SDL_WINDOWPOS_UNDEFINED, 
         1280, 
         720, 
-        SDL_WINDOW_SHOWN );
-    
+        SDL_WINDOW_SHOWN 
+    );
+
     if ( !window )
     {
         std::cout << "Error creating window: " << SDL_GetError() << std::endl;
+        return false;
+    }
+    
+    SDL_GLContext glContext = SDL_GL_CreateContext(window);
+
+    if (!glContext)
+    {
+        std::cout << "Error creating OpenGL content: " << SDL_GetError() << std::endl;
         return false;
     }
 
@@ -97,8 +104,7 @@ bool sodaview::application::initWindow()
 
 } 
 
-
-
+// kill application cleanly
 void sodaview::application::kill()
 {
     SDL_FreeSurface( surface );

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-
 namespace sodaview 
 {
 
@@ -16,14 +14,16 @@ namespace sodaview
         void run();
 
     private:
+    
+        SDL_Surface* surface;
+        SDL_Window* window;
+        SDL_GLContext glContext;
 
         void setup();
         bool initWindow();
         void kill();
 
         bool m_running = true;
-        SDL_Surface* surface;
-        SDL_Window* window;
     };
 
     application* createApplication();
