@@ -9,6 +9,9 @@
 #include "logging.h"
 #include "application.h"
 
+SDL_Surface* surface;
+SDL_Window* window;
+SDL_GLContext glContext;
 
 
 // create and destroy application
@@ -46,15 +49,15 @@ void sodaview::application::run()
 // run all things needed to setup project
 void sodaview::application::setup()
 {
-    if ( !initArena() )
-    {
-        LOG_FATAL("Arena could not be created");
-        m_running = false;
-    }
+    // if ( !initArena() )
+    // {
+    //     LOG_FATAL("Arena could not be created");
+    //     m_running = false;
+    // }
 
     if ( !initWindow() ) 
     { 
-        LOG_FATAL("Failed to create window");
+        LOG_FATAL("Failed to initialise window");
         m_running = false;
     }
 }
@@ -70,7 +73,7 @@ bool sodaview::application::initWindow()
 
     if ( SDL_Init( SDL_INIT_EVERYTHING  ) < 0 )
     {
-        std::cout << "Error initialising SDL: " << SDL_GetError() << std::endl;
+        LOG_FATAL("Error initialising SDL: %s", SDL_GetError());
         return false;
     }
 
@@ -78,36 +81,37 @@ bool sodaview::application::initWindow()
         "sodaview", 
         SDL_WINDOWPOS_UNDEFINED, 
         SDL_WINDOWPOS_UNDEFINED, 
-        1280, 
-        720, 
-        SDL_WINDOW_SHOWN 
+        700, 
+        600, 
+        SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL
     );
 
     if ( !window )
     {
-        std::cout << "Error creating window: " << SDL_GetError() << std::endl;
+        LOG_FATAL("Failed to create window: %s", SDL_GetError());
         return false;
     }
     
-    SDL_GLContext glContext = SDL_GL_CreateContext(window);
+    SDL_GLContext context = SDL_GL_CreateContext(window);
 
-    if (!glContext)
+    if ( !context )
     {
-        std::cout << "Error creating OpenGL content: " << SDL_GetError() << std::endl;
+        LOG_FATAL("Failed to create OpenGL context: %s", SDL_GetError());
         return false;
     }
 
     surface = SDL_GetWindowSurface(window);
     if (!surface) 
     {
-        std::cout << "Surface could not be created: " << SDL_GetError() << std::endl;
+        LOG_FATAL("Failed to create window surface: %s", SDL_GetError());
         return false;
     }
 
 
     SDL_FillRect( surface, NULL, SDL_MapRGB( surface->format, 255, 1, 255 ) );
-    
-    std::cout  << "it worked" << std::endl;
+
+
+    LOG_INFO("It worked");
     return true;
 
 } 

@@ -17,12 +17,10 @@ namespace sodaview
     private:
     
         // pointers to window which will be managed by arena eventually
-        SDL_Surface* surface;
-        SDL_Window* window;
-        SDL_GLContext glContext;
+        
 
         void setup();
-        bool initArena();
+        // bool initArena();
         bool initWindow();
         void kill();
 
