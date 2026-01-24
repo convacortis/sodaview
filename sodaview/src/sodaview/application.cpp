@@ -1,9 +1,11 @@
-#include "../../../vendor/glad/include/glad/glad.h"
-#include "../../../vendor/SDL/include/SDL.h"
-#include <SDL2/SDL_opengl.h>
 #include <stdio.h>
 #include <string>
 #include <iostream>
+
+#include "../../../vendor/glad/include/glad/glad.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_opengl.h>
+
 #include "logging.h"
 #include "application.h"
 
@@ -44,9 +46,15 @@ void sodaview::application::run()
 // run all things needed to setup project
 void sodaview::application::setup()
 {
+    if ( !initArena() )
+    {
+        LOG_FATAL("Arena could not be created");
+        m_running = false;
+    }
+
     if ( !initWindow() ) 
     { 
-        std::cout << "Failed to create window" << std::endl; 
+        LOG_FATAL("Failed to create window");
         m_running = false;
     }
 }
