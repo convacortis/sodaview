@@ -23,6 +23,7 @@ namespace sodaview
         // bool initArena();
         bool initWindow();
         void kill();
+        void createTriangle();
 
         // condition that controls game loop
         bool m_running = true;

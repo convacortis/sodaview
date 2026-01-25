@@ -14,6 +14,23 @@ SDL_Window* window;
 SDL_GLContext glContext;
 
 
+// opengl shaders
+
+const char* vertexShaderSource = "#Version 330 core\n"
+"layout (location = 0) in vec3 aPos;\n"
+"void main()\n"
+"{\n"
+"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"}\0";
+
+const char* fragmentShaderSource = "#Version 330 core\n"
+"out vec3 FragColor;\n"
+"void main()\n"
+"{\n"
+"   FragColor = vec4(0.8f, 0.3f, 0.2f, 1.0f);\n"
+"}\0";
+
+
 // create and destroy application
 sodaview::application::application() 
 {
@@ -22,6 +39,7 @@ sodaview::application::application()
 
 sodaview::application::~application() 
 {
+    LOG_INFO("Killed program cleanly");
     kill();
 }
 
@@ -38,6 +56,7 @@ void sodaview::application::run()
             {
                 m_running = false;
             }
+            
         }
 
         SDL_UpdateWindowSurface(window);
@@ -110,11 +129,33 @@ bool sodaview::application::initWindow()
 
     SDL_FillRect( surface, NULL, SDL_MapRGB( surface->format, 255, 1, 255 ) );
 
+   
+    gladLoadGL();
 
-    LOG_INFO("It worked");
+    glViewport(0, 0, 700, 800);
+
+    glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    LOG_INFO("Successully initialised window");
     return true;
 
 } 
+
+
+void sodaview::application::createTriangle()
+{
+    
+    
+    GLfloat vertices[] =
+    {
+        -0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
+        0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f,
+        0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f
+    };
+
+}
 
 // kill application cleanly
 void sodaview::application::kill()
