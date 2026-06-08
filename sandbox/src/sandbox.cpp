@@ -1,20 +1,22 @@
 #include "../../sodaview/src/sodaview.h"
 
-class Sandbox : public sodaview::application
+class Sandbox : public Sodaview::Application
 {
 public:
-    Sandbox(){
+    Sandbox()
+    {
 
     }
 
-    ~Sandbox(){
+    ~Sandbox()
+    {
 
 
     }
 
 };
 
-sodaview::application* sodaview::createApplication()
+Sodaview::Application* Sodaview::createApplication()
 {
     return new Sandbox;
 }

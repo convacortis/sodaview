@@ -1,16 +1,17 @@
 #pragma once
 
 // main application namespace (window, init ect)
-namespace sodaview 
+namespace Sodaview 
 {
 
-    class application
+    class Application
     {
+        
     
     public:
         
-        application();
-        ~application();
+        Application();
+        ~Application();
 
         void run();
 
@@ -20,6 +21,8 @@ namespace sodaview
         
 
         void setup();
+
+        
         // bool initArena();
         bool initWindow();
         void kill();
@@ -27,8 +30,10 @@ namespace sodaview
 
         // condition that controls game loop
         bool m_running = true;
+
+
     };
 
-    application* createApplication();
+    Application* createApplication();
 
 }

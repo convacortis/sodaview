@@ -1,0 +1,23 @@
+setup -> create instance of application:
+    
+constructor:
+
+    startarena
+    startglfw
+    startvulkan
+    startgameloop
+
+destructor:
+
+    cleanup
+
+
+cleanup:
+
+    destroygameloop
+    destroyvulkan
+    destroyglfw
+    destroyarena
+
+    or is it just destroyarena?
+

@@ -1,11 +1,11 @@
 #pragma once
 
-extern sodaview::application* sodaview::createApplication();
+extern Sodaview::Application* Sodaview::createApplication();
 
 int main(int argc, char** argv)
 {
     
-    auto app = sodaview::createApplication();
+    auto app = Sodaview::createApplication();
     // app->createTriangle();
     app->run();
     delete app;

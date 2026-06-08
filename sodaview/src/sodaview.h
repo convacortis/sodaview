@@ -1,6 +1,6 @@
 
 
-#include "sodaview/application.h"
+#include "sodaview/core/application.h"
 
 
-#include "sodaview/entrypoint.h"
+#include "sodaview/core/entrypoint.h"
