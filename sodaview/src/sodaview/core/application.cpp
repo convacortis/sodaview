@@ -2,22 +2,28 @@
 #include "application.h"
 
 
+Core::Application::Application()
+{
+    // initArena();
+    LOG_INFO("Allocated memory for program")
+}
+Core::Application::~Application() 
+{
+    // cleanuparena();
+    LOG_INFO("Killed program cleanly");
+}
 
 
 // create and destroy application
-Core::Application::Application() 
+void Core::Application::run() 
 {
     setup();
-}
-
-Core::Application::~Application() 
-{
-    LOG_INFO("Killed program cleanly");
+    mainLoop();
     cleanup();
 }
 
-// event loop
-void Core::Application::run()
+
+void Core::Application::mainLoop()
 {
     while(m_running)
     {

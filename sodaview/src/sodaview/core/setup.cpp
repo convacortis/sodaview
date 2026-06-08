@@ -16,6 +16,11 @@ void Core::Application::setup()
         LOG_FATAL("Failed to initialise window");
         m_running = false;
     }
+
+    // if ( !initVulkan() )
+    // {
+        
+    // }
 }
 
 
@@ -24,7 +29,30 @@ void Core::Application::setup()
 // create window
 bool Core::Application::initWindow()
 {
-  
+    // initialise glfw
+    glfwInit();
+
+    int platform = glfwGetPlatform();
+
+    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
+
+    // do not create opengl context
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    
+    // disable window resizing
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    // shows the window
+    glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+
+    // create window
+    window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
+
+    glfwShowWindow(window);  // explicitly show it
+    glfwFocusWindow(window); // and focus it
+
+    LOG_INFO("Successfully initialised window");
+
 } 
 
 

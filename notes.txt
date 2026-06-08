@@ -3,6 +3,9 @@ setup -> create instance of application:
 constructor:
 
     startarena
+
+
+run:
     startglfw
     startvulkan
     startgameloop

@@ -38,6 +38,9 @@ const std::vector<const char*> deviceExtensions = {
 
 
 
+
+
+
 // main application namespace (window, init ect)
 namespace Core 
 {
@@ -55,7 +58,13 @@ namespace Core
 
     private:
     
-        // pointers to window which will be managed by arena eventually
+
+        const uint32_t WIDTH = 2000;
+        const uint32_t HEIGHT = 1200;
+        
+        
+        GLFWwindow* window;
+
         
 
         void setup();
@@ -63,6 +72,7 @@ namespace Core
         
         // bool initArena();
         bool initWindow();
+        void mainLoop();
         void cleanup();
         void createTriangle();
 
