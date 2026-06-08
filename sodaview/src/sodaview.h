@@ -1,5 +1,4 @@
 
-
 #include "sodaview/core/application.h"
 
 

@@ -50,6 +50,8 @@ endif ()
 add_library(sodaview SHARED 
   sodaview/src/sodaview/core/application.cpp
   sodaview/src/sodaview/core/application.h
+  sodaview/src/sodaview/core/setup.cpp
+  sodaview/src/sodaview/core/cleanup.cpp
   sodaview/src/sodaview/core/entrypoint.h
   sodaview/src/sodaview.h
 )

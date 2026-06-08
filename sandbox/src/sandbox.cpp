@@ -1,6 +1,6 @@
 #include "../../sodaview/src/sodaview.h"
 
-class Sandbox : public Sodaview::Application
+class Sandbox : public Core::Application
 {
 public:
     Sandbox()
@@ -16,7 +16,7 @@ public:
 
 };
 
-Sodaview::Application* Sodaview::createApplication()
+Core::Application* Core::createApplication()
 {
     return new Sandbox;
 }

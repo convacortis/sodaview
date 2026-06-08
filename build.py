@@ -32,7 +32,7 @@ def compileShaders(): # in future could just pass platform tweaking whether glsl
         print("found glcls: ", glslc)
 
     
-    shader_dir = script_dir / "shaders"
+    shader_dir = script_dir / "sodaview/assets/shaders"
 
     print("shader folder: ", shader_dir)
 
@@ -72,11 +72,11 @@ def linuxBuild():
     print("Building for Linux")  
 
     # compile all shader files from shader directory and give feedback
-    # if ( not compileShaders() ):
-    #     print("Shaders not compiled correctly")
-    #     return
-    # else: 
-    #     print("Shaders successfully compiled")
+    if ( compileShaders() == False ):
+        print("Shaders not compiled correctly")
+        return
+    else: 
+        print("Shaders successfully compiled")
 
     # attempt to compile project with cmake
 
