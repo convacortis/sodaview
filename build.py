@@ -60,7 +60,7 @@ def cmakeBuild():
 
     else:
         print("running first time compilation")
-        subprocess.run(["cmake", "-S", ".", "-B", "build"])
+        subprocess.run(["cmake", "-S", ".", "-B", "build", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"])
         subprocess.run(["cmake", "--build", "build"])
 
 

@@ -17,16 +17,14 @@ void Core::Application::setup()
         m_running = false;
     }
 
-    // if ( !initVulkan() )
-    // {
-        
-    // }
+    initVulkan(); 
+    
 }
 
 
 
 
-// create window
+// create window with glfw
 bool Core::Application::initWindow()
 {
     // initialise glfw
@@ -53,11 +51,14 @@ bool Core::Application::initWindow()
 
     LOG_INFO("Successfully initialised window");
 
+    return true;
+    
 } 
 
-
-void Core::Application::createTriangle()
+void Core::Application::initVulkan()
 {
     
 
 }
+
+

@@ -15,16 +15,12 @@ FetchContent_Declare(glfw GIT_REPOSITORY https://github.com/glfw/glfw.git)
 
 
 
-# Tells GLFW not to build the Wayland backend. 
-# Without this, CMake tries to find Wayland headers and either fails silently or builds a broken backend.
 set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
 
-# Explicitly forces the X11 backend. Without the FORCE, 
-# if CMake already cached a wrong value from a previous configure run, this would be ignored — FORCE overwrites it regardless.
+
 set(GLFW_BUILD_X11 ON CACHE BOOL "" FORCE)
 
-# Explicitly forces the X11 backend. Without the FORCE, 
-# if CMake already cached a wrong value from a previous configure run, this would be ignored — FORCE overwrites it regardless.
+
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -46,14 +42,16 @@ endif ()
 
 
 
+file(GLOB_RECURSE SODAVIEW_SOURCES 
+  "sodaview/src/*.cpp"
+  "sodaview/src/*.h"
+)
+
 
 add_library(sodaview SHARED 
-  sodaview/src/sodaview/core/application.cpp
-  sodaview/src/sodaview/core/application.h
-  sodaview/src/sodaview/core/setup.cpp
-  sodaview/src/sodaview/core/cleanup.cpp
-  sodaview/src/sodaview/core/entrypoint.h
-  sodaview/src/sodaview.h
+
+  ${SODAVIEW_SOURCES}
+
 )
 
 

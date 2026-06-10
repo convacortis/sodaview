@@ -1,3 +1,5 @@
+// responsible from app creation class
+
 #pragma once
 
 #define GLFW_INCLUDE_VULKAN
@@ -71,7 +73,14 @@ namespace Core
 
         
         // bool initArena();
+
+
+        
         bool initWindow();
+
+        void initVulkan();
+
+        
         void mainLoop();
         void cleanup();
         void createTriangle();

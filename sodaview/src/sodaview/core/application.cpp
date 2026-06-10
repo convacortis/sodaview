@@ -1,3 +1,6 @@
+// application lifetime commands are called here
+// - calls setup which includes all the vulkan stuff but that lives in setup.cpp as this file is meant to be strictly lifetime (at the moment)
+
 #include "../logging/logging.h"
 #include "application.h"
 
@@ -21,16 +24,3 @@ void Core::Application::run()
     mainLoop();
     cleanup();
 }
-
-
-void Core::Application::mainLoop()
-{
-    while(m_running)
-    {
-        LOG_INFO("its working")
-    }
-}
-
-// run all things needed to setup project
-
-
