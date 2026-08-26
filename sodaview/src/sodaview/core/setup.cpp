@@ -1,64 +1,33 @@
-#include "../logging/logging.h"
 #include "application.h"
 
 
 
 void Core::Application::setup()
 {
-    // if ( !initArena() )
-    // {
-    //     LOG_FATAL("Arena could not be created");
-    //     m_running = false;
-    // }
-
-    if ( !initWindow() ) 
+    if ( !Core::vksetup::initWindow(m_cxt) ) 
     { 
         LOG_FATAL("Failed to initialise window");
         m_running = false;
     }
 
     initVulkan(); 
-    
 }
 
 
-
-
-// create window with glfw
-bool Core::Application::initWindow()
-{
-    // initialise glfw
-    glfwInit();
-
-    int platform = glfwGetPlatform();
-
-    glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
-
-    // do not create opengl context
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    
-    // disable window resizing
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-    // shows the window
-    glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
-
-    // create window
-    window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
-
-    glfwShowWindow(window);  // explicitly show it
-    glfwFocusWindow(window); // and focus it
-
-    LOG_INFO("Successfully initialised window");
-
-    return true;
-    
-} 
 
 void Core::Application::initVulkan()
 {
-    
-
+    Core::vksetup::createInstance(m_cxt);
+    Core::vksetup::setupDebugMessenger(m_cxt);
+    Core::vksetup::createSurface(m_cxt);
+    Core::vksetup::pickPhysicalDevice(m_cxt);
+    Core::vksetup::createLogicalDevice(m_cxt);
+    Core::vksetup::createSwapChain(m_cxt);
+    Core::vksetup::createImageViews(m_cxt);
+    Core::vksetup::createRenderPass(m_cxt);
+    Core::vksetup::createGraphicsPipeline(m_cxt);
+    Core::vksetup::createFramebuffers(m_cxt);
+    Core::vksetup::createCommandPool(m_cxt);
+    Core::vksetup::createCommandBuffer(m_cxt);
+    Core::vksetup::createSyncObjects(m_cxt);
 }
-
-

@@ -13,7 +13,7 @@ include(FetchContent)
 FetchContent_Declare(glfw GIT_REPOSITORY https://github.com/glfw/glfw.git)
 
 
-
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(GLFW_BUILD_WAYLAND OFF CACHE BOOL "" FORCE)
 

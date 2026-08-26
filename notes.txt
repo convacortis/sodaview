@@ -1,4 +1,4 @@
-setup -> create instance of application:
+SETUP -> create instance of application:
     
 constructor:
 
@@ -23,4 +23,28 @@ cleanup:
     destroyarena
 
     or is it just destroyarena?
+
+
+
+STRUCTURE
+
+sandbox - where the games are made and sodaview functions are called from - this is what gets compiled into an executable
+
+
+sodaview - glorified library - holds all the functions and components to be used and manipulated by user#
+        - runs as a shared library and handles input and output which is why its described as an engine
+
+        core - application stuff - initialisation
+
+        ecs
+
+        physics
+
+
+
+
+
+
+
+
 

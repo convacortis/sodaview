@@ -26,61 +26,71 @@ def compileShaders(): # in future could just pass platform tweaking whether glsl
     glslc = shutil.which("glslc")
 
     if not glslc:
-        print("glcls not installed or could not be found")
+        print("glslc not installed or could not be found")
         return False
     else:
-        print("found glcls: ", glslc)
+        print("found glslc: ", glslc)
 
+    # Source directory containing raw .vert / .frag files
+    shader_src_dir = script_dir / "sodaview/assets/shaders"
     
-    shader_dir = script_dir / "sodaview/assets/shaders"
+    # Target build directory for compiled .spv files
+    shader_build_dir = script_dir / "build/shaders"
+    shader_build_dir.mkdir(parents=True, exist_ok=True)
 
-    print("shader folder: ", shader_dir)
+    print("Shader source directory: ", shader_src_dir)
+    print("Shader build directory:  ", shader_build_dir)
 
-    for shader_file in shader_dir.glob("*"):
+    for shader_file in shader_src_dir.glob("*"):
         if shader_file.suffix in [".vert", ".frag", ".comp"]:
-            output_file = shader_file.with_suffix(shader_file.suffix + ".spv")
+            # Output file becomes build/shaders/<filename>.<ext>.spv
+            output_file = shader_build_dir / (shader_file.name + ".spv")
 
             if not output_file.exists() or shader_file.stat().st_mtime > output_file.stat().st_mtime:
-                print("compiling shader: ", shader_file.name)
+                print("Compiling shader: ", shader_file.name, " -> ", output_file.name)
 
                 result = subprocess.run([glslc, str(shader_file), "-o", str(output_file)], capture_output=True, text=True)
 
                 if result.returncode != 0:
-                    print("shader error in ", shader_file.name, ":", result.stderr)
-                    
+                    print("Shader error in ", shader_file.name, ":", result.stderr)
                     return False
-            
 
+
+def firstCMakeBuild():
+    print("initial build")
+    subprocess.run(["cmake", "-S", ".", "-B", "build", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"])
+    subprocess.run(["cmake", "--build", "build"])
 
 
 def cmakeBuild():
-    if ((script_dir / "build").exists()):
-        print("not first time compilation - recompiling")
-        subprocess.run(["cmake", "--build", "build"])
-
-    else:
-        print("running first time compilation")
-        subprocess.run(["cmake", "-S", ".", "-B", "build", "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"])
-        subprocess.run(["cmake", "--build", "build"])
-
-
+    print("recompiling")
+    subprocess.run(["cmake", "--build", "build"])
 
 
 
 
 def linuxBuild():
-    print("Building for Linux")  
 
-    # compile all shader files from shader directory and give feedback
-    if ( compileShaders() == False ):
-        print("Shaders not compiled correctly")
-        return
-    else: 
-        print("Shaders successfully compiled")
+    print("building for linux")
 
-    # attempt to compile project with cmake
 
-    cmakeBuild()
+    if ((script_dir / "build").exists()):
+        if ( compileShaders() == False ):
+            print("shaders not compiled correctly")
+            return
+        else: 
+            print("shaders successfully compiled")
+
+        cmakeBuild()
+    
+    else:
+        if ( compileShaders() == False ):
+            print("shaders not compiled correctly")
+            return
+        else: 
+            print("shaders successfully compiled")
+
+        firstCMakeBuild()
 
     
 
