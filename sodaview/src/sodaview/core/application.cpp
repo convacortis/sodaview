@@ -2,6 +2,7 @@
 // - calls setup which includes all the vulkan stuff but that lives in setup.cpp as this file is meant to be strictly lifetime (at the moment)
 
 #include "application.h"
+#include "../logging/logging.h"
 
 
 Core::Application::Application()

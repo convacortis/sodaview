@@ -1,24 +1,11 @@
 // responsible from main sodaview application class
 #pragma once
 
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
 
-#include <iostream>
-#include <fstream>
-#include <stdexcept>
-#include <algorithm>
-#include <vector>
-#include <cstring>
-#include <cstdlib>
-#include <cstdint>
-#include <limits>
-#include <optional>
-#include <set>
-
-#include "../logging/logging.h"
+#include <memory>
 
 #include "vksetup/vksetup.h"
+#include "../graphics/renderer/renderer.h"
 
 
 // main application namespace (window, init ect)
@@ -29,7 +16,7 @@ namespace Core
     
     public:
         Application();
-        ~Application();
+        virtual ~Application();
         void run();
 
     private: 
@@ -40,6 +27,7 @@ namespace Core
 
         // vulkan context
         Core::vksetup::VkContext m_cxt;
+        std::unique_ptr<Graphics::Renderer> m_renderer;
         
         // condition that controls game loop
         bool m_running = true;

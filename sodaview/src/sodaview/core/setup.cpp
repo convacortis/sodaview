@@ -1,7 +1,6 @@
 #include "application.h"
 
 
-
 void Core::Application::setup()
 {
     if ( !Core::vksetup::initWindow(m_cxt) ) 
@@ -11,6 +10,8 @@ void Core::Application::setup()
     }
 
     initVulkan(); 
+
+    m_renderer = std::make_unique<Graphics::Renderer>(m_cxt);
 }
 
 
