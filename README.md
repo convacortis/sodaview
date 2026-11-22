@@ -3,7 +3,7 @@
 
   <img align="center" src="docs/images/sodaview-logo.png" width="500">
 
-<br>
+<br><br>
   <p align="center">
     A modern 3D game engine written in CPP!
     <br>
