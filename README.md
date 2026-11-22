@@ -1,7 +1,5 @@
-
-
+# Sodaview Game Engine
 <br />
-<h1>Sodaview Game Engine</h1>
 
 <div align="center">
 
@@ -11,13 +9,13 @@
 
 </div>
 
-<h2>3D Vulkan Game Engine</h2>
+## 3D Vulkan Game Engine
   
 
-<h2>Build</h>
+## Build
 
 
-<h2>Docs</h2>
+## Docs
 
   
   <!-- <p align="center">
