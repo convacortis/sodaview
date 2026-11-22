@@ -39,7 +39,7 @@ void Core::vksetup::createCommandBuffer(VkContext& cxt)
 void Core::vksetup::createSyncObjects(VkContext& cxt)
 {
     cxt.imageAvailableSemaphores.resize(cxt.MAX_FRAMES_IN_FLIGHT);
-    cxt.renderFinishedSemaphores.resize(cxt.MAX_FRAMES_IN_FLIGHT);
+    cxt.renderFinishedSemaphores.resize(cxt.swapChainImages.size());
     cxt.inFlightFences.resize(cxt.MAX_FRAMES_IN_FLIGHT);
 
     VkSemaphoreCreateInfo semaphoreInfo{};
@@ -50,10 +50,15 @@ void Core::vksetup::createSyncObjects(VkContext& cxt)
     fenceInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 
     for (size_t i = 0; i < cxt.MAX_FRAMES_IN_FLIGHT; i++) {
-        if (vkCreateSemaphore(cxt.device, &semaphoreInfo, nullptr, &cxt.imageAvailableSemaphores[i]) != VK_SUCCESS ||
-            vkCreateSemaphore(cxt.device, &semaphoreInfo, nullptr, &cxt.renderFinishedSemaphores[i]) != VK_SUCCESS ||
-            vkCreateFence(cxt.device, &fenceInfo, nullptr, &cxt.inFlightFences[i]) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create synchronization objects for a frame!");
+    if (vkCreateSemaphore(cxt.device, &semaphoreInfo, nullptr, &cxt.imageAvailableSemaphores[i]) != VK_SUCCESS ||
+        vkCreateFence(cxt.device, &fenceInfo, nullptr, &cxt.inFlightFences[i]) != VK_SUCCESS) {
+        throw std::runtime_error("failed to create synchronization objects for a frame!");
+    }
+}
+
+    for (size_t i = 0; i < cxt.swapChainImages.size(); i++) {
+        if (vkCreateSemaphore(cxt.device, &semaphoreInfo, nullptr, &cxt.renderFinishedSemaphores[i]) != VK_SUCCESS) {
+            throw std::runtime_error("failed to create render finished semaphore!");
         }
     }
 
