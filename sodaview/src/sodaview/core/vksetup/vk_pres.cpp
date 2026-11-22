@@ -216,3 +216,29 @@ VkSurfaceFormatKHR Core::vksetup::chooseSwapSurfaceFormat(const std::vector<VkSu
 
     return availableFormats[0];
 }
+
+void Core::vksetup::createFramebuffers(VkContext& cxt)
+{
+    cxt.swapChainFramebuffers.resize(cxt.swapChainImageViews.size());
+    
+    for (size_t i = 0; i < cxt.swapChainImageViews.size(); i++)
+    {
+        VkImageView attachments[] = {
+            cxt.swapChainImageViews[i]
+        };
+
+        VkFramebufferCreateInfo framebufferInfo{};
+        framebufferInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
+        framebufferInfo.renderPass = cxt.renderPass;
+        framebufferInfo.attachmentCount = 1;
+        framebufferInfo.pAttachments = attachments;
+        framebufferInfo.width = cxt.swapChainExtent.width;
+        framebufferInfo.height = cxt.swapChainExtent.height;
+        framebufferInfo.layers = 1;
+
+        if (vkCreateFramebuffer(cxt.device, &framebufferInfo, nullptr, &cxt.swapChainFramebuffers[i]) != VK_SUCCESS)
+        {
+            throw std::runtime_error("failed to create framebuffer");
+        }
+    }
+}

@@ -11,6 +11,8 @@ namespace Graphics {
         Renderer(Core::vksetup::VkContext& cxt);
 
 
+        void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
+        void recreateSwapChain();
         
         void drawFrame();
         
@@ -19,6 +21,8 @@ namespace Graphics {
 
         
         void frameSync();
+
+
 
 
 

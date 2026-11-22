@@ -20,6 +20,7 @@
 namespace Core::vksetup {
 
     struct VkContext {
+
         const uint32_t WIDTH = 2000;
         const uint32_t HEIGHT = 1200;
         
@@ -43,11 +44,18 @@ namespace Core::vksetup {
         VkPipelineLayout pipelineLayout;    
         VkPipeline graphicsPipeline;
         std::vector<VkFramebuffer> swapChainFramebuffers;
+
         VkCommandPool commandPool;
-        VkCommandBuffer commandBuffer;
-        VkSemaphore imageAvailableSemaphore;
-        VkSemaphore renderFinishedSemaphore;
-        VkFence inFlightFence;
+        std::vector<VkCommandBuffer> commandBuffers;
+
+        std::vector<VkSemaphore> imageAvailableSemaphores;
+        std::vector<VkSemaphore> renderFinishedSemaphores;
+        std::vector<VkFence> inFlightFences;
+
+        bool framebufferResized = false;
+        uint32_t currentFrame = 0;
+
+        const int MAX_FRAMES_IN_FLIGHT = 2;
     };
 
     // Validation layers & extensions
@@ -122,7 +130,8 @@ namespace Core::vksetup {
     VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
     VkShaderModule createShaderModule(const std::vector<char>& code, VkContext cxt);
     void recordCommandBuffer(VkContext& cxt, uint32_t imageIndex);
-
+    void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+    
     // Main Engine Setup Functions
     bool initWindow(VkContext& cxt);
     void setupDebugMessenger(VkContext& cxt);
@@ -142,5 +151,6 @@ namespace Core::vksetup {
     void createCommandBuffer(VkContext& cxt);
     void createSyncObjects(VkContext& cxt);
 
+    void cleanupSwapChain(VkContext& cxt);
     void cleanup(VkContext& cxt);
 }

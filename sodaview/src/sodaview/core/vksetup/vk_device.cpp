@@ -2,30 +2,33 @@
 
 bool Core::vksetup::initWindow(VkContext& cxt)
 {
-    // initialise glfw
     glfwInit();
+
     int platform = glfwGetPlatform();
 
     glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_WAYLAND);
-
-    // do not create opengl context
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    
-    // disable window resizing
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-    // shows the window
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 
-    // create window
-    cxt.window = glfwCreateWindow(cxt.WIDTH, cxt.HEIGHT, "sodaview game engine", nullptr, nullptr);
+    cxt.window = glfwCreateWindow(cxt.WIDTH, cxt.HEIGHT, "sodaview", nullptr, nullptr);
 
-    glfwShowWindow(cxt.window);  // explicitly show it
-    glfwFocusWindow(cxt.window); // and focus it
+    glfwSetWindowUserPointer(cxt.window, &cxt);
+    glfwSetFramebufferSizeCallback(cxt.window, Core::vksetup::framebufferResizeCallback);
+
+
+    glfwShowWindow(cxt.window);  
+    glfwFocusWindow(cxt.window); 
 
     LOG_INFO("Successfully initialised window");
     return true;
 } 
+
+void Core::vksetup::framebufferResizeCallback(GLFWwindow* window, int width, int height) 
+{
+    auto* cxt = static_cast<VkContext*>(glfwGetWindowUserPointer(window));
+    cxt->framebufferResized = true;
+}
 
 
 void Core::vksetup::createInstance(VkContext& cxt)
@@ -37,7 +40,7 @@ void Core::vksetup::createInstance(VkContext& cxt)
 
     VkApplicationInfo appInfo{};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Hello Triangle";
+    appInfo.pApplicationName = "sodaview";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "no engine";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
