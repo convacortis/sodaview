@@ -57,8 +57,6 @@ void Graphics::Renderer::recordCommandBuffer(VkCommandBuffer commandBuffer, uint
 }
 
 
-
-
 void Graphics::Renderer::drawFrame()
 {
     vkWaitForFences(m_cxt.device, 1, &m_cxt.inFlightFences[m_cxt.currentFrame], VK_TRUE, UINT64_MAX);
