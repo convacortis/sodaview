@@ -9,7 +9,7 @@
 
 <br />
 
-## 3D Vulkan Game Engine
+## A 3D Game Engine written in C++ on Vulkan
   
 
 ## Build
@@ -18,8 +18,3 @@
 ## Docs
 
   
-  <!-- <p align="center">
-    <br>
-    <a href="https://github.com/convacortis/sodaview/Documents"><strong>Explore the docs »</strong></a>
-    <br>
-  </p> -->
