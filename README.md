@@ -1,7 +1,7 @@
 <br />
 <div align="center">
 
-  <img align="center" src="https://imgbox.com/nOAgvoKB">
+  <img align="center" src="docs/images/sodaview-logo.png" width="600">
 
   <p align="center">
     A modern 3D game engine written in CPP!
