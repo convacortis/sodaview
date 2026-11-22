@@ -5,9 +5,9 @@
 
   <img align="center" src="docs/images/sodaview-logo.png" width="500">
 
-<br><br>
-
 </div>
+
+<br />
 
 ## 3D Vulkan Game Engine
   
